@@ -1,0 +1,11 @@
+{
+    "name": "funo-network/commando",
+    "description": "https://github.com/FunoNetwork/Commando. Forked from CortexPE/Commando",
+    "type": "library",
+    "license": "GPL-3.0-only",
+    "autoload": {
+      "psr-4": {
+         "": ["src"]
+      }
+   }
+}
