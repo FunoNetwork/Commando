@@ -96,9 +96,6 @@ class PacketHooker implements Listener {
 	private static function generateOverloads(CommandSender $cs, BaseCommand $command): array {
 		$overloads = [];
 
-		$scEnum = new CommandEnum();
-		$scEnum->enumName = $command->getName() . "SubCommands";
-
 		/** @var BaseSubCommand[] $subCommands */
 		$subCommands = array_values(array_unique($command->getSubCommands(), SORT_REGULAR));
 		foreach($subCommands as $sI => $subCommand) {
@@ -112,8 +109,6 @@ class PacketHooker implements Listener {
 
 			// it looks uglier imho
 			//$scParam->enum = $scEnum;
-
-			$scEnum->enumValues[] = $subCommand->getName();
 
 			$overloadList = self::generateOverloadList($subCommand);
 			if(!empty($overloadList)){
