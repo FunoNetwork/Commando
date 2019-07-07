@@ -76,7 +76,7 @@ class PacketHooker implements Listener {
 	public function onPacketSend(DataPacketSendEvent $ev): void {
 		$pk = $ev->getPacket();
 		if($pk instanceof AvailableCommandsPacket) {
-			$p = $ev->getPlayer();
+			$p = $ev->getTarget()->getPlayer();
 			foreach($pk->commandData as $commandName => $commandData) {
 				$cmd = $this->map->getCommand($commandName);
 				if($cmd instanceof BaseCommand) {
