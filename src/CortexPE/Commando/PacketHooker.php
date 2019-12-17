@@ -74,16 +74,17 @@ class PacketHooker implements Listener {
 	 * @ignoreCancelled true
 	 */
 	public function onPacketSend(DataPacketSendEvent $ev): void {
-		$pk = $ev->getPacket();
-		if($pk instanceof AvailableCommandsPacket) {
-			$p = $ev->getTarget()->getPlayer();
-			foreach($pk->commandData as $commandName => $commandData) {
-				$cmd = $this->map->getCommand($commandName);
-				if($cmd instanceof BaseCommand) {
-					$pk->commandData[$commandName]->overloads = self::generateOverloads($p, $cmd);
+		foreach($ev->getPackets() as $pk) {
+			if($pk instanceof AvailableCommandsPacket) {
+				$p = $ev->getTarget()->getPlayer();
+				foreach($pk->commandData as $commandName => $commandData) {
+					$cmd = $this->map->getCommand($commandName);
+					if($cmd instanceof BaseCommand) {
+						$pk->commandData[$commandName]->overloads = self::generateOverloads($p, $cmd);
+					}
 				}
+				$pk->softEnums = SoftEnumStore::getEnums();
 			}
-			$pk->softEnums = SoftEnumStore::getEnums();
 		}
 	}
 
